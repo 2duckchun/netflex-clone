@@ -1,15 +1,18 @@
 'use client'
 
+import axios from 'axios'
 import Image from 'next/image'
 import NetflexLogo from '/public/images/logo.png'
 import Input from '@/components/input'
 import { useCallback, useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
 
 export default function Auth() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [variant, setVariant] = useState('login')
 
   const toggleVariant = useCallback(() => {
@@ -17,6 +20,32 @@ export default function Auth() {
       currentVariant === 'login' ? 'register' : 'login',
     )
   }, [])
+
+  const login = useCallback(async () => {
+    try {
+      await signIn('credentials', {
+        email,
+        password,
+        callbackUrl: '/',
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }, [email, password])
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post('/api/register', {
+        email,
+        name,
+        password,
+      })
+
+      login()
+    } catch (error) {
+      console.error(error)
+    }
+  }, [email, name, password, login])
 
   return (
     <div className="relative size-full bg-[url('/images/hero.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
@@ -61,9 +90,26 @@ export default function Auth() {
                 type="password"
               />
             </div>
-            <button className="mt-10 w-full rounded-md bg-red-600 py-3 text-white transition hover:bg-red-700">
+            <button
+              onClick={variant === 'login' ? login : register}
+              className="mt-10 w-full rounded-md bg-red-600 py-3 text-white transition hover:bg-red-700"
+            >
               {variant === 'login' ? 'Login' : 'Sign up'}
             </button>
+            <div
+              onClick={() => signIn('google', { callbackUrl: '/' })}
+              className="mt-8 flex flex-row items-center justify-center gap-4"
+            >
+              <div className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition hover:opacity-80">
+                <FcGoogle size={24} />
+              </div>
+              <div
+                onClick={() => signIn('github', { callbackUrl: '/' })}
+                className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition hover:opacity-80"
+              >
+                <FaGithub size={24} />
+              </div>
+            </div>
             <p className="mt-12 text-neutral-500">
               {variant === 'login'
                 ? 'First time using Netflex?'
