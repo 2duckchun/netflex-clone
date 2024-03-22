@@ -26,7 +26,7 @@ export default function Auth() {
       await signIn('credentials', {
         email,
         password,
-        callbackUrl: '/',
+        callbackUrl: '/profiles',
       })
     } catch (error) {
       console.error(error)
@@ -97,14 +97,14 @@ export default function Auth() {
               {variant === 'login' ? 'Login' : 'Sign up'}
             </button>
             <div
-              onClick={() => signIn('google', { callbackUrl: '/' })}
+              onClick={() => signIn('google', { callbackUrl: '/profiles' })}
               className="mt-8 flex flex-row items-center justify-center gap-4"
             >
               <div className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition hover:opacity-80">
                 <FcGoogle size={24} />
               </div>
               <div
-                onClick={() => signIn('github', { callbackUrl: '/' })}
+                onClick={() => signIn('github', { callbackUrl: '/profiles' })}
                 className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition hover:opacity-80"
               >
                 <FaGithub size={24} />
