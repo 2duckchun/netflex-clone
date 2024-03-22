@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import prismadb from '@/layers/6. shared/lib/prismadb'
+import prismadb from '@/layers/6.shared/lib/prismadb'
 import { NextRequest, NextResponse } from 'next/server'
-import serverAuth from '@/layers/6. shared/lib/serverAuth'
+import serverAuth from '@/layers/6.shared/lib/serverAuth'
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {

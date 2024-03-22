@@ -1,9 +1,9 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import prismadb from '@/layers/6. shared/lib/prismadb'
+import prismadb from '@/layers/6.shared/lib/prismadb'
 
-export default async function getSession() {
+export async function getSession() {
   const session = await getServerSession(authOptions)
 
   if (!session || !session.user?.email) {
@@ -22,3 +22,5 @@ export default async function getSession() {
 
   return currentUser
 }
+
+export default getSession
