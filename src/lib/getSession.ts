@@ -1,13 +1,24 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import prismadb from '@/lib/prismadb'
 
 export default async function getSession() {
   const session = await getServerSession(authOptions)
 
-  if (!session) {
+  if (!session || !session.user?.email) {
     redirect('/auth')
   }
 
-  return session
+  const currentUser = await prismadb.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  })
+
+  if (!currentUser) {
+    throw new Error('Not signed in')
+  }
+
+  return currentUser
 }

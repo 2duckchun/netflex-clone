@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { compare } from 'bcrypt'
 
@@ -7,9 +7,9 @@ import GoogleProvider from 'next-auth/providers/google'
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
-import prismadb from 'lib/prismadb'
+import prismadb from '@/lib/prismadb'
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID || '',
@@ -31,7 +31,6 @@ const handler = NextAuth({
       },
 
       async authorize(credentials) {
-        console.log(credentials)
         if (!credentials?.email || !credentials?.password) {
           throw new Error('email and password are required')
         }
@@ -61,7 +60,7 @@ const handler = NextAuth({
   pages: {
     signIn: '/auth',
   },
-  debug: process.env.NODE_ENV === 'development',
+  // debug: process.env.NODE_ENV === 'development',
   adapter: PrismaAdapter(prismadb),
   session: {
     strategy: 'jwt',
@@ -70,6 +69,8 @@ const handler = NextAuth({
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },
   secret: process.env.NEXTAUTH_SECRET,
-})
+} satisfies NextAuthOptions
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
