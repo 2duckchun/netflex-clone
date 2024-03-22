@@ -1,4 +1,4 @@
-import getSession from '@/lib/getSession'
+import getSession from '@/layers/6. shared/lib/getSession'
 import Image from 'next/image'
 import NetflexLogo from '/public/images/default-green.png'
 

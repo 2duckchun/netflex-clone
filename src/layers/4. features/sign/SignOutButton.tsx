@@ -1,6 +1,6 @@
 'use client'
 
-import Button from '@/components/button'
+import Button from '@/layers/6. shared/ui/button'
 import { signOut } from 'next-auth/react'
 
 export default function SignOutButton() {

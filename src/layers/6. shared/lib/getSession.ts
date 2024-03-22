@@ -1,13 +1,13 @@
-import { NextRequest } from 'next/server'
-import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import prismadb from '@/lib/prismadb'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import prismadb from '@/layers/6. shared/lib/prismadb'
 
-const serverAuth = async (req: NextRequest) => {
+export default async function getSession() {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user?.email) {
-    throw new Error('Not signed in')
+  if (!session || !session.user?.email) {
+    redirect('/auth')
   }
 
   const currentUser = await prismadb.user.findUnique({
@@ -20,7 +20,5 @@ const serverAuth = async (req: NextRequest) => {
     throw new Error('Not signed in')
   }
 
-  return { currentUser }
+  return currentUser
 }
-
-export default serverAuth

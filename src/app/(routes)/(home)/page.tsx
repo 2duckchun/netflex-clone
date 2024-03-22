@@ -1,5 +1,5 @@
-import SignOutButton from '@/widgets/SignOutButton'
-import getSession from '@/lib/getSession'
+import SignOutButton from '@/layers/4. features/sign/SignOutButton'
+import getSession from '@/layers/6. shared/lib/getSession'
 
 export default async function Home() {
   const session = await getSession()

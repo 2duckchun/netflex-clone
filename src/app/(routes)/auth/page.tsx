@@ -3,7 +3,7 @@
 import axios from 'axios'
 import Image from 'next/image'
 import NetflexLogo from '/public/images/logo.png'
-import Input from '@/components/input'
+import Input from '@/layers/6. shared/ui/input'
 import { useCallback, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
