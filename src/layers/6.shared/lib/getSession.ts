@@ -1,7 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import prismadb from '@/layers/6.shared/lib/prismadb'
+import { prismadb } from '@/shared/lib'
 
 export async function getSession() {
   const session = await getServerSession(authOptions)

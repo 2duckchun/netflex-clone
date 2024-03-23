@@ -1,13 +1,11 @@
+import { compare } from 'bcrypt'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import { compare } from 'bcrypt'
-
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
-import prismadb from '@/layers/6.shared/lib/prismadb'
+import { prismadb } from '@/shared/lib'
 
 export const authOptions = {
   providers: [
