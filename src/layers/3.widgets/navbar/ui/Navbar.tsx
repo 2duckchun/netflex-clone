@@ -1,20 +1,46 @@
 'use client'
 
-import NavbarItem from './NavbarItem'
 import { BsChevronDown, BsSearch, BsBell } from 'react-icons/bs'
-import MobileMenu from './mobileMenu'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import MobileMenu from './MobileMenu'
+import NavbarItem from './NavbarItem'
+import AccountMenu from './AccountMenu'
+
+const TOP_OFFSET = 66
 
 export const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [showAccountMenu, setShowAccountMenu] = useState(false)
+  const [showBackground, setShowBackground] = useState(false)
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu)
   }
 
+  const toggleAccountMenu = () => {
+    setShowAccountMenu(!showAccountMenu)
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > TOP_OFFSET) {
+        setShowBackground(true)
+      } else {
+        setShowBackground(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <nav className="fixed z-40 w-full">
-      <div className="flex flex-row items-center bg-zinc-900/90 px-4 py-6 transition duration-500 md:px-16">
+      <div
+        className={`flex flex-row items-center px-4 py-6 transition duration-500 md:px-16 ${showBackground ? 'bg-zinc-900/90' : ''}`}
+      >
         <picture>
           <img src={'/images/logo.png'} className="h-4 lg:h-7" alt="" />
         </picture>
@@ -31,7 +57,9 @@ export const Navbar = () => {
           onClick={toggleMobileMenu}
         >
           <p className="text-sm text-white">Browse</p>
-          <BsChevronDown className="text-white transition" />
+          <BsChevronDown
+            className={`text-white transition ${showMobileMenu ? 'rotate-180' : 'rotate-0'}`}
+          />
           <MobileMenu visible={showMobileMenu} />
         </div>
         <div className="ml-auto flex flex-row items-center gap-7">
@@ -41,13 +69,20 @@ export const Navbar = () => {
           <div className="cursor-pointer text-gray-200 hover:text-gray-300">
             <BsBell />
           </div>
-          <div className="relative flex cursor-pointer flex-row items-center gap-2">
+
+          <div
+            onClick={toggleAccountMenu}
+            className="relative flex cursor-pointer flex-row items-center gap-2"
+          >
             <div className="size-6 overflow-hidden rounded-md lg:size-10">
               <picture>
                 <img src={'/images/default-green.png'} alt="main logo" />
               </picture>
             </div>
-            <BsChevronDown className="text-white transition" />
+            <BsChevronDown
+              className={`text-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`}
+            />
+            <AccountMenu visible={showAccountMenu} />
           </div>
         </div>
       </div>
