@@ -1,4 +1,22 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
+      {
+        protocol: 'http',
+        hostname: 'uhdtv.io',
+      },
 
-export default nextConfig;
+      {
+        protocol: 'https',
+        hostname: '*.blender.org',
+      },
+    ],
+  },
+}
+
+export default nextConfig

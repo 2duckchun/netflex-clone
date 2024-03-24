@@ -1,12 +1,8 @@
-import { Billboard } from '@/widgets/billboard'
+import { HomePage } from '@/pages/home'
 import { getSession } from '@/shared/lib'
 
 export default async function Home() {
-  const session = await getSession()
+  await getSession()
 
-  return (
-    <div>
-      <Billboard />
-    </div>
-  )
+  return <HomePage />
 }
