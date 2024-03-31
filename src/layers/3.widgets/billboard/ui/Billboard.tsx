@@ -1,13 +1,13 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { getRandomMovieData } from '@/features/movie'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import { fetcher } from '@/layers/6.shared/api'
 
 export const Billboard = () => {
   const { isLoading, isError, data, error } = useQuery<Movie>({
     queryKey: ['randomMovie'],
-    queryFn: getRandomMovieData,
+    queryFn: fetcher('/api/movie/random', { method: 'GET' }),
   })
 
   if (isLoading)
