@@ -4,7 +4,7 @@ import Image from 'next/image'
 import NetflexLogo from '/public/images/default-green.png'
 import { useRouter } from 'next/navigation'
 
-export const SelectableProfiles = ({ session }: { session: UserSession }) => {
+export const SelectableProfiles = ({ session }: { session: User }) => {
   const router = useRouter()
   return (
     <div
