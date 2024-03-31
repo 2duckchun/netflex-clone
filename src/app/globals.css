@@ -16,8 +16,12 @@
   }
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
-  @apply bg-zinc-900 h-screen overflow-x-hidden;
+  @apply bg-zinc-900 h-[100vh];
 }
 
 @layer utilities {
