@@ -1,9 +1,8 @@
-import { NextRequest } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { prismadb } from '@/shared/lib'
 
-export const serverAuth = async (req: NextRequest) => {
+export const serverAuth = async () => {
   const session = await getServerSession(authOptions)
 
   if (!session?.user?.email) {

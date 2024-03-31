@@ -4,7 +4,7 @@ import { prismadb } from '@/shared/lib/prismadb'
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    await serverAuth(req)
+    await serverAuth()
 
     const movies = await prismadb.movie.findMany()
     return Response.json([...movies], { status: 200 })

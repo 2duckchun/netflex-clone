@@ -3,7 +3,7 @@ import { serverAuth } from '@/shared/lib'
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const { currentUser } = await serverAuth(req)
+    const { currentUser } = await serverAuth()
 
     return Response.json(
       {

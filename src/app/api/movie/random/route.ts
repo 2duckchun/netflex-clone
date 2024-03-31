@@ -4,7 +4,7 @@ import { prismadb } from '@/shared/lib/prismadb'
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    await serverAuth(req)
+    await serverAuth()
     const randomMovie = await getRamdonMovie()
     return Response.json(
       {
