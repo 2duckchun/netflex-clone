@@ -3,7 +3,7 @@
 interface InputProps {
   className?: string
   children: React.ReactNode
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const Button: React.FC<InputProps> = ({

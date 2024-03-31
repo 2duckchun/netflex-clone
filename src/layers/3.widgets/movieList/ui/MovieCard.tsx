@@ -1,5 +1,6 @@
 'use client'
 
+import { FavoriteButton } from '@/layers/4.features/favorite/ui/FavoriteButton'
 import Image from 'next/image'
 import { BsFillPlayFill } from 'react-icons/bs'
 
@@ -35,6 +36,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             >
               <BsFillPlayFill className="text-zinc-900" size={25} />
             </div>
+            <FavoriteButton movieId={data?.id} />
           </div>
           <p className="mt-4 font-semibold text-green-400">
             New <span className="text-white">2024</span>
