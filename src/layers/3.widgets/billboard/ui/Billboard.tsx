@@ -3,10 +3,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { fetcher } from '@/layers/6.shared/api'
+import { movieKeys } from '@/layers/6.shared/query-key'
 
 export const Billboard = () => {
   const { isLoading, isError, data, error } = useQuery<Movie>({
-    queryKey: ['randomMovie'],
+    queryKey: [movieKeys.random()],
     queryFn: fetcher('/api/movie/random', { method: 'GET' }),
   })
 

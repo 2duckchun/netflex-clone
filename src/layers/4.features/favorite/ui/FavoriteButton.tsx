@@ -1,6 +1,7 @@
 'use client'
 
 import { fetcher } from '@/layers/6.shared/api'
+import { movieKeys, userKeys } from '@/layers/6.shared/query-key'
 import { Button } from '@/layers/6.shared/ui'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
@@ -14,7 +15,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   const queryClient = useQueryClient()
 
   const { data: currentUser } = useQuery<User>({
-    queryKey: ['currentUser'],
+    queryKey: [userKeys.currentUser()],
     queryFn: fetcher('/api/current'),
   })
 
@@ -25,7 +26,10 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
     }),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['favoriteMovieList'],
+        queryKey: [movieKeys.favoriteMovieList()],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [userKeys.currentUser()],
       })
     },
   })
@@ -37,7 +41,10 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
     }),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['favoriteMovieList'],
+        queryKey: [movieKeys.favoriteMovieList()],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [userKeys.currentUser()],
       })
     },
   })

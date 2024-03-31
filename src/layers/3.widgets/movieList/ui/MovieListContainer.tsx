@@ -3,15 +3,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { MovieList } from './MovieList'
 import { fetcher } from '@/layers/6.shared/api'
+import { movieKeys } from '@/layers/6.shared/query-key'
 
 export const MovieListContainer = () => {
   const { data: movies = [] } = useQuery<Movie[]>({
-    queryKey: ['movieList'],
+    queryKey: [movieKeys.movieList()],
     queryFn: fetcher('/api/movie/list', { method: 'GET' }),
   })
 
   const { data: favoriteMovies = [] } = useQuery<Movie[]>({
-    queryKey: ['favoriteMovieList'],
+    queryKey: [movieKeys.favoriteMovieList()],
     queryFn: fetcher('/api/movie/favorites', { method: 'GET' }),
   })
 
